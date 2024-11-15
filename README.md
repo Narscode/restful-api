@@ -1,2 +1,2 @@
-# RESTful-API
+# restful-api
 Nareswari BackEnd OmahTI Oprec
