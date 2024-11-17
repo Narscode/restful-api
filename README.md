@@ -24,63 +24,6 @@ Database: The project may use a relational database (e.g., PostgreSQL/MySQL) or 
 
 Testing Tools: Could include testing frameworks such as Mocha, Jest, or PyTest for automated test cases.
 
-# Installation and Setup
-
-Clone the Repository:
-
-git clone https://github.com/Narscode/restful-api.git
-cd restful-api
-
-Install Dependencies:
-If using Node.js:
-
-npm install
-
-Or for Python:
-
-pip install -r requirements.txt
-
-Environment Variables:
-Configure environment variables (e.g., DB_URI, PORT) in a .env file for secure access.
-
-Run the Application:
-
-npm start
-
-or, if applicable:
-
-python app.py
-
-Access the API: Navigate to http://localhost:3000 (or configured port) to test endpoints.
-
-Usage
-
-Example Endpoints:
-
-GET /items: Fetch a list of items.
-
-POST /items: Add a new item.
-
-PUT /items/: Update an existing item.
-
-DELETE /items/: Remove an item.
-
-Request Example:
-
-POST /items
-{
-  "name": "Sample Item",
-  "description": "Description of the item"
-}
-
-Response Example:
-
-{
-  "id": 1,
-  "name": "Sample Item",
-  "description": "Description of the item",
-  "createdAt": "2024-11-17T00:00:00.000Z"
-}
 
 # Analysis
 
