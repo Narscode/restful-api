@@ -1,0 +1,101 @@
+project_structure = {
+    "package.json": """
+{
+  "name": "restful-api-main",
+  "version": "1.0.0",
+  "description": "A RESTful API project for Vercel deployment",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
+""",
+    "vercel.json": """
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/index.js" }
+  ]
+}
+""",
+    "index.js": """
+const express = require('express');
+const app = express();
+const apiRoutes = require('./routes/api');
+
+app.use(express.json());
+
+// Use routes
+app.use('/api', apiRoutes);
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+module.exports = app;
+""",
+    "routes/api.js": """
+const express = require('express');
+const router = express.Router();
+const { getGreeting } = require('../controller/apiController');
+
+router.get('/greet', getGreeting);
+
+module.exports = router;
+""",
+    "controller/apiController.js": """
+exports.getGreeting = (req, res) => {
+  res.json({ message: 'Hello, World!' });
+};
+""",
+    "config/config.js": """
+module.exports = {
+  environment: process.env.NODE_ENV || 'development',
+  port: process.env.PORT || 3000
+};
+""",
+    "schemas/schema.js": """
+// Example schema (if needed)
+const exampleSchema = {
+  type: "object",
+  properties: {
+    name: { type: "string" },
+    age: { type: "integer" }
+  },
+  required: ["name", "age"]
+};
+
+module.exports = exampleSchema;
+"""
+}
+
+import os
+
+# Define the target directory for the project
+base_dir = "/mnt/data/restful-api-main-new"
+os.makedirs(base_dir, exist_ok=True)
+
+# Create subdirectories
+subdirs = ["routes", "controller", "config", "schemas"]
+for subdir in subdirs:
+    os.makedirs(os.path.join(base_dir, subdir), exist_ok=True)
+
+# Write the files
+for file_path, content in project_structure.items():
+    full_path = os.path.join(base_dir, file_path.replace("/", os.sep))
+    with open(full_path, "w") as file:
+        file.write(content)
+
+# List the generated project structure
+os.listdir(base_dir)
