@@ -1,11 +1,11 @@
 # RESTful API
 Nareswari BackEnd OmahTI Oprec
 
-#Overview
+# Overview
 
 This project, hosted on GitHub, appears to be a RESTful API designed to handle certain operations for web services. This README will provide an overview of the repository’s features, setup guide, usage instructions, and an analysis of its design and potential areas for improvement.
 
-#Key Features
+# Key Features
 RESTful Architecture: The API adheres to REST principles, allowing standardized interactions using HTTP methods (GET, POST, PUT, DELETE).
 
 Endpoints: The API provides multiple routes for handling CRUD operations.
@@ -14,7 +14,7 @@ JSON Responses: The API returns data in JSON format, making it easy to consume a
 
 Middleware Integration: Includes middleware for common tasks such as logging, request validation, or security enhancements.
 
-#Technologies Used
+# Technologies Used
 
 Programming Language: Likely developed using Node.js (or potentially Python/Java, depending on the structure and dependencies in the project).
 
@@ -24,7 +24,7 @@ Database: The project may use a relational database (e.g., PostgreSQL/MySQL) or 
 
 Testing Tools: Could include testing frameworks such as Mocha, Jest, or PyTest for automated test cases.
 
-#Installation and Setup
+# Installation and Setup
 
 Clone the Repository:
 
@@ -82,7 +82,7 @@ Response Example:
   "createdAt": "2024-11-17T00:00:00.000Z"
 }
 
-#Analysis
+# Analysis
 
 * Strengths:
 
