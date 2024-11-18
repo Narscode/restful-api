@@ -1,2 +1,47 @@
-main_folder_path = os.path.join(extraction_dir, 'restful-api-main')
-os.listdir(main_folder_path)
+import shutil
+
+vercel_json_path = os.path.join(restful_api_main_path, 'package/vercel.json')
+package_json_path = os.path.join(restful_api_main_path, 'package/package.json')
+
+vercel_json_exists = os.path.exists(vercel_json_path)
+package_json_exists = os.path.exists(package_json_path)
+
+vercel_json_content = None
+package_json_content = None
+
+if vercel_json_exists:
+    with open(vercel_json_path, 'r') as f:
+        vercel_json_content = f.read()
+
+if package_json_exists:
+    with open(package_json_path, 'r') as f:
+        package_json_content = f.read()
+
+# Check for duplicate or unnecessary files
+duplicate_files = [
+    'config/server 2.js',
+    'schemas/schema (2).js',
+    'config/auth(1).js',
+    'package/package (1).json'
+]
+
+removed_files = []
+for file in duplicate_files:
+    duplicate_path = os.path.join(restful_api_main_path, file)
+    if os.path.exists(duplicate_path):
+        os.remove(duplicate_path)
+        removed_files.append(file)
+
+entry_points_prepared = False
+api_dir = os.path.join(restful_api_main_path, 'api')
+if not os.path.exists(api_dir):
+    os.makedirs(api_dir)
+    entry_file_path = os.path.join(api_dir, 'index.js')
+    with open(entry_file_path, 'w') as f:
+        f.write("// Vercel API Entry Point\n")
+        f.write("module.exports = (req, res) => {\n")
+        f.write("    res.status(200).json({ message: 'Hello from Vercel!' });\n")
+        f.write("};\n")
+    entry_points_prepared = True
+
+vercel_json_exists, package_json_exists, removed_files, entry_points_prepared
