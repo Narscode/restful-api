@@ -1,0 +1,51 @@
+import json
+
+# Parse and review `vercel.json`
+vercel_json_data = None
+if vercel_json_content:
+    try:
+        vercel_json_data = json.loads(vercel_json_content)
+    except json.JSONDecodeError as e:
+        vercel_json_data = {"error": str(e)}
+
+# Parse and review `package.json`
+package_json_data = None
+if package_json_content:
+    try:
+        package_json_data = json.loads(package_json_content)
+    except json.JSONDecodeError as e:
+        package_json_data = {"error": str(e)}
+
+# Fix `vercel.json` structure if necessary
+fixed_vercel_json_data = {
+    "version": 2,
+    "builds": [
+        {
+            "src": "api/index.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "api/index.js"
+        }
+    ]
+}
+
+# Save the fixed `vercel.json`
+with open(vercel_json_path, 'w') as f:
+    json.dump(fixed_vercel_json_data, f, indent=2)
+
+# Check `package.json` for necessary scripts and dependencies
+if package_json_data and isinstance(package_json_data, dict):
+    # Ensure "start" script exists
+    scripts = package_json_data.get("scripts", {})
+    scripts["start"] = "node api/index.js"
+    package_json_data["scripts"] = scripts
+
+    # Save the updated `package.json`
+    with open(package_json_path, 'w') as f:
+        json.dump(package_json_data, f, indent=2)
+
+fixed_vercel_json_data, package_json_data["scripts"]
