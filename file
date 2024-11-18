@@ -34,8 +34,8 @@ with open(vercel_json_path, 'w') as f:
     json.dump(fixed_vercel_json_data, f, indent=2)
 
 if package_json_data and isinstance(package_json_data, dict):
-    # Ensure "start" script exists
-    scripts = package_json_data.get("scripts", {})
+
+scripts = package_json_data.get("scripts", {})
     scripts["start"] = "node api/index.js"
     package_json_data["scripts"] = scripts
 
